@@ -1,58 +1,167 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# GoCrave Backend API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> A modern, scalable backend API for the GoCrave food delivery platform built with Laravel 13
 
-## About Laravel
+## About GoCrave Backend
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+GoCrave Backend is a RESTful API service built with **Laravel 13** that powers the GoCrave food delivery platform. It handles restaurant management, menu items, user orders, payments, and real-time order tracking.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Restaurant Management**: Create and manage restaurants with their profiles
+- **Menu Management**: Dynamic menu items with categories and pricing
+- **Order Processing**: Complete order lifecycle management
+- **Payment Handling**: Secure payment processing and tracking
+- **User Reviews**: Customer ratings and reviews for restaurants
+- **Real-time Updates**: WebSocket support for live order tracking
+- **Database Migrations**: Schema-first development with Laravel migrations
+- **RESTful API**: Clean, well-structured API endpoints
 
-## Learning Laravel
+## Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Framework**: Laravel 13.8
+- **Language**: PHP 8.3+
+- **Database**: SQLite (development) / PostgreSQL (production-ready)
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Task Scheduling**: Laravel Queue
+- **Testing**: PHPUnit
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Project Structure
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```
+backend/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/      # API endpoints
+│   │   └── Middleware/       # Request/response middleware
+│   ├── Models/               # Eloquent models
+│   │   ├── User.php          # User accounts
+│   │   ├── Restaurant.php    # Restaurant profiles
+│   │   ├── MenuItem.php      # Menu items
+│   │   ├── Order.php         # Orders
+│   │   ├── OrderItem.php     # Order line items
+│   │   ├── Payment.php       # Payment records
+│   │   └── Review.php        # Customer reviews
+│   └── Providers/            # Service providers
+├── database/
+│   ├── migrations/           # Database schema
+│   ├── factories/            # Data factories for testing
+│   └── seeders/              # Database seeders
+├── routes/
+│   ├── api.php               # API routes
+│   ├── web.php               # Web routes
+│   └── console.php           # Artisan commands
+├── config/                   # Application configuration
+├── tests/                    # Unit and feature tests
+└── storage/                  # Logs and application storage
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Getting Started
 
-## Contributing
+### Prerequisites
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP 8.3 or higher
+- Composer
+- Node.js & npm
+- SQLite or PostgreSQL
 
-## Code of Conduct
+### Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone and setup environment**
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
 
-## Security Vulnerabilities
+2. **Install dependencies and run setup**
+   ```bash
+   composer run-script setup
+   ```
+   This will:
+   - Install PHP dependencies
+   - Generate application key
+   - Run database migrations
+   - Install npm packages
+   - Build frontend assets
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Start development server**
+   ```bash
+   composer run dev
+   ```
+   This starts:
+   - Laravel server on `http://localhost:8000`
+   - Queue listener for background jobs
+   - Vite dev server for frontend assets
+   - Log viewer (Pail)
+
+### Development Commands
+
+```bash
+# Run migrations
+php artisan migrate
+
+# Create a new migration
+php artisan make:migration create_table_name
+
+# Create a new model
+php artisan make:model ModelName
+
+# Create a controller
+php artisan make:controller ControllerName
+
+# Run tests
+composer run test
+
+# Run code quality checks
+./vendor/bin/pint
+
+# Database seeding
+php artisan db:seed
+php artisan db:seed --class=RestaurantSeeder
+```
+
+## API Endpoints
+
+The backend provides RESTful API endpoints for:
+
+- **Users**: Registration, authentication, profile management
+- **Restaurants**: Browse, search, and filter restaurants
+- **Menu Items**: Get restaurant menus and items
+- **Orders**: Create, track, and manage orders
+- **Payments**: Process and track payments
+- **Reviews**: Submit and retrieve restaurant reviews
+
+## Configuration
+
+Key configuration files:
+- `.env` - Environment variables
+- `config/app.php` - Application settings
+- `config/database.php` - Database configuration
+- `config/auth.php` - Authentication settings
+
+## Testing
+
+```bash
+# Run all tests
+composer run test
+
+# Run specific test file
+php artisan test tests/Feature/OrderTest.php
+
+# Run with coverage
+php artisan test --coverage
+```
+
+## Deployment
+
+The backend is designed to be deployed on modern PHP hosting platforms:
+
+1. Set environment variables in `.env`
+2. Run migrations: `php artisan migrate --force`
+3. Cache configuration: `php artisan config:cache`
+4. Set up queue worker for background jobs
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
